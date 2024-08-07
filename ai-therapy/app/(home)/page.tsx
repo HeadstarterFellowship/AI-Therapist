@@ -1,20 +1,12 @@
 "use client";
 import { useState } from "react";
-import { Avatar } from "@/components/ui/avatar";
+
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
-import {
-  Bot,
-  Icon,
-  Mic,
-  Send,
-  SendHorizonal,
-  Settings,
-  User,
-} from "lucide-react";
-import Image from "next/image";
-import { Input } from "@/components/ui/input";
+
+import { Bot, Mic, Send, Settings, User } from "lucide-react";
+import UserMessage from "@/components/UserMessage";
+import BotMessage from "@/components/BotMessage";
 
 interface Message {
   type: "bot" | "user";
@@ -55,19 +47,29 @@ export default function Home() {
 
   const handleSendMessage = () => {
     if (inputMessage.trim() === "") return;
-  
+
     // Add user message
-    const newMessages: Message[] = [...messages, { type: "user", message: inputMessage }];
-  
+    const newMessages: Message[] = [
+      ...messages,
+      { type: "user", message: inputMessage },
+    ];
+
     // Select a random bot message
-    const randomBotMessage = botResponses[Math.floor(Math.random() * botResponses.length)];
-  
+    const randomBotMessage =
+      botResponses[Math.floor(Math.random() * botResponses.length)];
+
     // Add bot message
     newMessages.push({ type: "bot", message: randomBotMessage });
-  
+
     // Update state
     setMessages(newMessages);
     setInputMessage("");
+  };
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
+    }
   };
 
   return (
@@ -92,45 +94,22 @@ export default function Home() {
       </header>
       <div className="flex-1 overflow-y-auto p-6">
         <div className="grid gap-4">
-          {messages.map((item, index) => (
-            <div
-              key={index}
-              className={`flex items-start gap-4 ${
-                item.type === "user" ? "justify-end" : ""
-              }`}
-            >
-              {item.type === "bot" && (
-                <div className="p-2 ps-4">
-                  <div className="py-auto">
-                    <Bot size={32} />
-                  </div>
-                </div>
-              )}
-              <div
-                className={`rounded-lg p-4 max-w-[80%] ${
-                  item.type === "bot" ? "bg-base-700" : "bg-accent-600"
-                }`}
-              >
-                <p className="text-sm">{item.message}</p>
-              </div>
-              {item.type === "user" && (
-                <div className="p-2 pe-4">
-                  <div className="py-auto">
-                    <User size={32} />
-                  </div>
-                </div>
-              )}
-            </div>
-          ))}
+          {messages.map((item, index) =>
+            item.type === "user" ? (
+              <UserMessage key={index} message={item.message} />
+            ) : (
+              <BotMessage key={index} message={item.message} />
+            )
+          )}
         </div>
       </div>
       <div className="bg-accent-700 border-t p-8 flex items-center gap-2">
-        <Input
-          type="text"
+        <Textarea
           value={inputMessage}
           onChange={(e) => setInputMessage(e.target.value)}
+          onKeyDown={handleKeyDown}
           placeholder="Type your message..."
-          className="flex-1 rounded-full pr-12 h-12"
+          className="flex-1 pr-12 h-12"
         />
         <Button
           type="submit"
