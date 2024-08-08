@@ -1,5 +1,4 @@
-// ./app/page.tsx
-import ClientComponent from "../components/ClientComponent";
+import ClientComponent from "../../components/ClientComponent";
 import { fetchAccessToken } from "hume";
 
 export default async function Page() {
