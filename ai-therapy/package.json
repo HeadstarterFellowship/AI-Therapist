@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@humeai/voice-react": "^0.1.11-beta.5",
     "@radix-ui/react-avatar": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
     "ai-therapy": "file:",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "hume": "^0.8.5",
     "lucide-react": "^0.424.0",
     "next": "14.2.5",
     "react": "^18",
