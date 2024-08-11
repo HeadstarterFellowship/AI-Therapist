@@ -4,22 +4,38 @@ import { useVoice } from "@humeai/voice-react";
 
 import { AnimatePresence, motion } from "framer-motion";
 import { ComponentRef, forwardRef } from "react";
+import UserMessage from "./UserMessage";
+import BotMessage from "./BotMessage";
+import NavBar from "./NavBar";
+import { useEffect, useRef } from "react";
+import { useUser } from "@clerk/nextjs";
+
+
+
 
 const Messages = forwardRef<
   ComponentRef<typeof motion.div>,
   Record<never, never>
 >(function Messages(_, ref) {
   const { messages } = useVoice();
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
 
   return (
     <motion.div
       layoutScroll
-      className={"grow rounded-md overflow-auto p-4"}
+      className={"flex flex-col h-screen bg-background"}
       ref={ref}
     >
-      <motion.div
-        className={"max-w-2xl mx-auto w-full flex flex-col gap-4 pb-24"}
-      >
+      <NavBar />
+      <motion.div className={"flex-1 p-6"}>
         <AnimatePresence mode={"popLayout"}>
           {messages.map((msg, index) => {
             if (
@@ -29,12 +45,7 @@ const Messages = forwardRef<
               return (
                 <motion.div
                   key={msg.type + index}
-                  className={cn(
-                    "w-[80%]",
-                    
-                    "border border-border rounded",
-                    msg.type === "user_message" ? "bg-accent-600 ml-auto" : "bg-base-700"
-                  )}
+                  className={cn("grid gap-4 my-4")}
                   initial={{
                     opacity: 0,
                     y: 10,
@@ -48,14 +59,12 @@ const Messages = forwardRef<
                     y: 0,
                   }}
                 >
-                  <div
-                    className={cn(
-                      "text-xs capitalize font-medium leading-none opacity-50 pt-4 px-3"
-                    )}
-                  >
-                    {msg.message.role}
-                  </div>
-                  <div className={"pb-3 px-3"}>{msg.message.content}</div>
+                  {msg.type === "user_message" ? (
+                    <UserMessage message={msg.message.content || ""} />
+                  ) : (
+                    <BotMessage message={msg.message.content || ""} />
+                  )}
+                  <div ref={messagesEndRef} />
                 </motion.div>
               );
             }
