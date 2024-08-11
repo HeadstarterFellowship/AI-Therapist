@@ -1,34 +1,85 @@
-// ./components/Controls.tsx
 "use client";
-import { useVoice, VoiceReadyState } from "@humeai/voice-react";
+import { useVoice } from "@humeai/voice-react";
+import { Button } from "./ui/button";
+import { BotMessageSquare, MessageCircleOff, Mic, MicOff, Phone } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Toggle } from "./ui/toggle";
+import MicFFT from "./MicFFT";
+import { cn } from "@/lib/utils";
+import UserInput from "./UserInput";
+
 export default function Controls() {
-    const { connect, disconnect, readyState } = useVoice();
+  const { disconnect, status, isMuted, unmute, mute, micFft } = useVoice();
 
-    if (readyState === VoiceReadyState.OPEN) {
-        return (
-            <button
-                onClick={() => {
-                    disconnect();
-                }}
-            >
-                End Session
-            </button>
-        );
-    }
-
-    return (
-        <button
-            onClick={() => {
-                connect()
-                    .then(() => {
-                        /* handle success */
-                    })
-                    .catch(() => {
-                        /* handle error */
-                    });
+  return (
+    <div
+      className={
+        cn(
+          "fixed bottom-0 left-0 w-full p-4 flex items-center justify-center",
+          
+        )
+      }
+    >
+      <UserInput />
+      <AnimatePresence>
+        {status.value === "connected" ? (
+          <motion.div
+            initial={{
+              y: "100%",
+              opacity: 0,
             }}
-        >
-            Start Session
-        </button>
-    );
+            animate={{
+              y: 0,
+              opacity: 1,
+            }}
+            exit={{
+              y: "100%",
+              opacity: 0,
+            }}
+            className={
+              "p-4 bg-card border border-border rounded-lg shadow-sm flex items-center gap-4 bg-accent-700 "
+            }
+          >
+            <Toggle
+              pressed={!isMuted}
+              onPressedChange={() => {
+                if (isMuted) {
+                  unmute();
+                } else {
+                  mute();
+                }
+              }}
+            >
+              {isMuted ? (
+                <MicOff className={"size-4"} />
+              ) : (
+                <Mic className={"size-4"} />
+              )}
+            </Toggle>
+
+            <div className={"relative grid h-8 w-48 shrink grow-0 "}>
+              <MicFFT fft={micFft} className={"fill-current"} />
+            </div>
+
+            <Button
+              className={"flex items-center gap-1"}
+              onClick={() => {
+                disconnect();
+              }}
+              variant={"destructive"}
+            >
+              <span>
+                <MessageCircleOff
+                  className={"size-4 opacity-50"}
+                  strokeWidth={2}
+                  stroke={"currentColor"}
+                />
+              </span>
+              <span>End Chat</span>
+            </Button>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+    </div>
+  );
 }
