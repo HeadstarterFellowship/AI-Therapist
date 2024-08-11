@@ -35,7 +35,7 @@ const Messages = forwardRef<
       ref={ref}
     >
       <NavBar />
-      <motion.div className={"flex-1 p-6"}>
+      <motion.div className={"flex-1 p-6 pb-24"}>
         <AnimatePresence mode={"popLayout"}>
           {messages.map((msg, index) => {
             if (

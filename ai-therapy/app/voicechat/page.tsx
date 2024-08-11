@@ -1,4 +1,4 @@
-import NavBar from "@/components/NavBar";
+
 import ClientComponent from "../../components/ClientComponent";
 import { fetchAccessToken } from "hume";
 
@@ -16,7 +16,6 @@ export default async function HumeTest() {
 
   return (
         <>
-        <NavBar />
       <ClientComponent accessToken={accessToken} configId={configId} />
         </>
   );

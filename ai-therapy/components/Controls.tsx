@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Toggle } from "./ui/toggle";
 import MicFFT from "./MicFFT";
 import { cn } from "@/lib/utils";
+import UserInput from "./UserInput";
 
 export default function Controls() {
   const { disconnect, status, isMuted, unmute, mute, micFft } = useVoice();
@@ -15,10 +16,11 @@ export default function Controls() {
       className={
         cn(
           "fixed bottom-0 left-0 w-full p-4 flex items-center justify-center",
-          "bg-gradient-to-t from-card via-card/90 to-card/0",
+          
         )
       }
     >
+      <UserInput />
       <AnimatePresence>
         {status.value === "connected" ? (
           <motion.div
@@ -35,7 +37,7 @@ export default function Controls() {
               opacity: 0,
             }}
             className={
-              "p-4 bg-card border border-border rounded-lg shadow-sm flex items-center gap-4 bg-accent-700"
+              "p-4 bg-card border border-border rounded-lg shadow-sm flex items-center gap-4 bg-accent-700 "
             }
           >
             <Toggle
