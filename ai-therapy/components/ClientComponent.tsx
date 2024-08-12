@@ -51,7 +51,6 @@ export default function ClientComponent({
         <VoiceProvider
             auth={{ type: "accessToken", value: accessToken }}
             configId={configId}
-            resumedChatGroupId="0d67a6a2-1249-4f06-a055-2eb57dce7a38" 
             onMessage={() => {
                 if (timeout.current) {
                   window.clearTimeout(timeout.current);
