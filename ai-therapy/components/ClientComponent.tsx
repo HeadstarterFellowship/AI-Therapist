@@ -3,21 +3,21 @@ import { VoiceProvider } from "@humeai/voice-react";
 import Messages from "./Controls";
 import Controls from "./Messages";
 import {  useEffect, useRef } from "react";
-import StartCall from "./StartChat";
 import { supabaseClient } from "@/utils/supabase/client";
 import { useUser } from "@clerk/nextjs";
 export default function ClientComponent({
-    accessToken,
-    configId,
+  accessToken,
+  configId,
 }: {
-    accessToken: string;
-    configId: string;
+  accessToken: string;
+  configId: string;
 }) {
     const timeout = useRef<number | null>(null);
     const ref = useRef<HTMLDivElement | null>(null);
  
 
-  const {user, isSignedIn} = useUser();
+
+  const { user, isSignedIn } = useUser();
 
   // useEffect(() => {
   //   async function fetchChats() {
@@ -48,7 +48,6 @@ export default function ClientComponent({
 
 
     return (
-      <>
         <VoiceProvider
             auth={{ type: "accessToken", value: accessToken }}
             configId={configId}
@@ -71,13 +70,11 @@ export default function ClientComponent({
               }}
         >
               <div ref={ref}>
-                
                 <Messages />
                 <Controls />
                 
                 
             </div>
         </VoiceProvider>
-      </>
     );
 }

@@ -29,7 +29,7 @@ export default function NavBar() {
             </div>
           </div>
         </Link>
-        <h2 className="text-lg font-medium">Chatbot</h2>
+        <h2 className="text-lg font-medium">Therabot</h2>
       </div>
       <div className="gap-2 flex justify-center ">
         <SignedOut>
