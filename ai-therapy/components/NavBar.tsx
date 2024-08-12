@@ -1,4 +1,4 @@
-import { Bot, Settings } from "lucide-react";
+import { Bot, MenuIcon, Settings } from "lucide-react";
 import React from "react";
 import { Button } from "./ui/button";
 import Link from "next/link";
@@ -6,8 +6,13 @@ import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Image from "next/image";
 export default function NavBar() {
   return (
+    
     <header className="bg-background shadow-md text-primary-foreground py-4 px-6 flex items-center justify-between">
       <div className="flex items-center gap-4">
+      <Button variant="ghost" size="icon" className="rounded-full md:hidden">
+              <MenuIcon className="h-5 w-5" />
+              <span className="sr-only">Toggle Sidebar</span>
+            </Button>
         <Link href={"/"}>
           <div className="p-2 ps-4">
             <div className="py-auto">
