@@ -3,7 +3,6 @@ import { VoiceProvider } from "@humeai/voice-react";
 import Messages from "./Controls";
 import Controls from "./Messages";
 import {  useEffect, useRef } from "react";
-import StartCall from "./StartChat";
 import { supabaseClient } from "@/utils/supabase/client";
 import { useUser } from "@clerk/nextjs";
 export default function ClientComponent({
