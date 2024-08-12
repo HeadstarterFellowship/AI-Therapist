@@ -19,7 +19,7 @@ export default async function HumeTest() {
         <>
     
 
-       <NavBar />
+      
       
       <ClientComponent accessToken={accessToken} configId={configId} />
         </>
