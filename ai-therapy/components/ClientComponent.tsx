@@ -18,31 +18,31 @@ export default function ClientComponent({
 
   const {user, isSignedIn} = useUser();
 
-  useEffect(() => {
-    async function fetchChats() {
-      try {
-        const response = await fetch("/api/hume-chat");
-        const data = await response.json();
-        console.log(data);
+  // useEffect(() => {
+  //   async function fetchChats() {
+  //     try {
+  //       const response = await fetch("/api/hume-chat");
+  //       const data = await response.json();
+  //       console.log(data);
 
-        if (isSignedIn) {
-          for (let i = 0; i < data.chatsPage.length; i++) {
-            const { error } = await supabaseClient
-              .from("userMessages")
-              .upsert({ user_id: user?.id, chat_group_id: data.chatsPage[i].chatGroupId, chat_id: data.chatsPage[i].id }, {onConflict: 'chat_id'})
-            if (error) {
-              console.error("Error inserting new chat group id: ", error.message);
-            } else {
-              console.log("Chat group id inserted successfully");
-            }
-          }
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    fetchChats();
-  }, [ isSignedIn, user?.id]);
+  //       if (isSignedIn) {
+  //         for (let i = 0; i < data.chatsPage.length; i++) {
+  //           const { error } = await supabaseClient
+  //             .from("userMessages")
+  //             .upsert({ user_id: user?.id, chat_group_id: data.chatsPage[i].chatGroupId, chat_id: data.chatsPage[i].id }, {onConflict: 'chat_id'})
+  //           if (error) {
+  //             console.error("Error inserting new chat group id: ", error.message);
+  //           } else {
+  //             console.log("Chat group id inserted successfully");
+  //           }
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   }
+  //   fetchChats();
+  // }, [ isSignedIn, user?.id]);
   
 
 
