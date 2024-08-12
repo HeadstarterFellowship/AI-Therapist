@@ -48,6 +48,7 @@ export default function ClientComponent({
 
 
     return (
+      <>
         <VoiceProvider
             auth={{ type: "accessToken", value: accessToken }}
             configId={configId}
@@ -70,11 +71,13 @@ export default function ClientComponent({
               }}
         >
               <div ref={ref}>
+                
                 <Messages />
                 <Controls />
                 
                 
             </div>
         </VoiceProvider>
+      </>
     );
 }

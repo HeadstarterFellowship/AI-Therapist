@@ -34,7 +34,7 @@ const Messages = forwardRef<
       className={"flex flex-col h-screen bg-background"}
       ref={ref}
     >
-      <NavBar />
+      {/* <NavBar /> */}
       <motion.div className={"flex-1 p-6 pb-24"}>
         <AnimatePresence mode={"popLayout"}>
           {messages.map((msg, index) => {
