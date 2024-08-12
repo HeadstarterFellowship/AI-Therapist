@@ -6,17 +6,18 @@ import {  useEffect, useRef } from "react";
 import { supabaseClient } from "@/utils/supabase/client";
 import { useUser } from "@clerk/nextjs";
 export default function ClientComponent({
-    accessToken,
-    configId,
+  accessToken,
+  configId,
 }: {
-    accessToken: string;
-    configId: string;
+  accessToken: string;
+  configId: string;
 }) {
     const timeout = useRef<number | null>(null);
     const ref = useRef<HTMLDivElement | null>(null);
  
 
-  const {user, isSignedIn} = useUser();
+
+  const { user, isSignedIn } = useUser();
 
   // useEffect(() => {
   //   async function fetchChats() {
