@@ -3,6 +3,7 @@ import React from "react";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import Image from "next/image";
 export default function NavBar() {
   return (
     <header className="bg-background shadow-md text-primary-foreground py-4 px-6 flex items-center justify-between">
@@ -10,7 +11,16 @@ export default function NavBar() {
         <Link href={"/"}>
           <div className="p-2 ps-4">
             <div className="py-auto">
-              <Bot size={32} />
+            <Image 
+                src="/therapyroboticon.svg"
+                alt="bot"
+                width={32}
+                height={32}
+                className="rounded-full w-8 h-8"
+              >
+
+
+              </Image>
             </div>
           </div>
         </Link>

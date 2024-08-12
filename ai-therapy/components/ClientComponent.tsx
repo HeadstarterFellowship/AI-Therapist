@@ -72,7 +72,7 @@ export default function ClientComponent({
               <div ref={ref}>
                 <Messages />
                 <Controls />
-                <StartCall />
+                
                 
             </div>
         </VoiceProvider>

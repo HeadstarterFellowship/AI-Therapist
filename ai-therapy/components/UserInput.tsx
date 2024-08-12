@@ -23,7 +23,7 @@ export default function UserInput() {
     }
   };
   return (
-    <div className=" p-8 flex items-center gap-2">
+    <div className=" p-2 flex items-center gap-2 w-[60vw]">
       <Textarea
         value={text}
         onChange={(e) => setText(e.target.value)}
